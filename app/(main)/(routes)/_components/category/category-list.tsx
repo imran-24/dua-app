@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-// import { useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Loading from "../../loading";
@@ -15,34 +14,10 @@ interface CategoryListProps {
 }
 
 export const CategoryList = ({ categories }: CategoryListProps) => {
-  // const params = useSearchParams();
-  // const categoryId = params.get("cat");
+
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // const [selected, setSelected] = useState<string | null>("1");
-  // const router = useRouter();
 
-  // useEffect(() => {
-  //   if (!categoryId) return; // Only run if there is a `cat` parameter
-  //   if (categoryId !== selected) {
-  //     setSelected(categoryId); // Update selected if it differs
-  //     // Scroll to the selected category
-  //     // if (scrollRef.current) {
-  //     //   // const categoryIndex = categories.findIndex(
-  //     //   //   (category) => category.cat_id.toString() === categoryId
-  //     //   // );
-  //     //   if (Number(categoryId) >= 0) {
-  //     //     const catElement = scrollRef.current.children[
-  //     //       Number(categoryId)
-  //     //     ] as HTMLDivElement;
-  //     //     catElement?.scrollIntoView({
-  //     //       behavior: "smooth",
-  //     //       block: "start", // Center the element in view
-  //     //     });
-  //     //   }
-  //     // }
-  //   }
-  // }, [categoryId]);
 
   return (
     <div

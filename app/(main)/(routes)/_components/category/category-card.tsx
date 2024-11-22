@@ -1,5 +1,6 @@
 "use client";
 
+import { useOrigin } from "@/hooks/use-origin";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,11 +23,12 @@ const CategoryCard = ({
   category,
   subcategory,
 }: CategoryCardProps) => {
+  
   const searchParams = useSearchParams();
-  const isActive = id.toString() === searchParams?.get("cat");
-
-  const url = `http://localhost:3000/duas/${category}?cat=${id}`;
-
+  const categoryId = searchParams.get("cat")
+  const isActive = id.toString() === categoryId;
+  const origin = useOrigin();
+  const url = `${origin}duas/${category}?cat=${id}`;
   const decodedUrl = decodeURIComponent(url);
   const updatedUrl = decodedUrl.replace(/\s/g, "-").toLowerCase();
 

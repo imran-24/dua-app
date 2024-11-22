@@ -3,12 +3,10 @@
 import { SubCategory } from "@/type"
 import Link from "next/link"
 import { usePathname } from "next/navigation";
-// import { useEffect, useState } from "react"
 
 interface SubCategoryListProps{
   id: number;
   subcategories: SubCategory[];
-  // ref: RefObject<HTMLDivElement>
 }
                  
 const SubCategoryList = ({id, subcategories}: SubCategoryListProps) => {
