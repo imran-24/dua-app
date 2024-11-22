@@ -13,19 +13,6 @@ export default function MainLayout({
 }>) {
   const data = getCategoriesWithSubCategories();
 
-  // const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const categoryId = searchParams.get("cat");
-
-  // if (!categoryId && data.length > 0) {
-  //   const url = `http://localhost:3000/duas/${data[0].cat_name_en}?cat=${data[0].cat_id}`;
-
-  //   const decodedUrl = decodeURIComponent(url);
-  //   const updatedUrl = decodedUrl.replace(/\s/g, "-").toLowerCase();
-
-  //   router.push(updatedUrl);
-  // }
-
   return (
     <Sidebar>
       <div className='h-full'>
@@ -40,7 +27,6 @@ export default function MainLayout({
           </div>
           <div className='col-span-12 lg:col-span-9'>{children}</div>
         </div>
-        {/* <UserList items={users} /> */}
       </div>
     </Sidebar>
   );
