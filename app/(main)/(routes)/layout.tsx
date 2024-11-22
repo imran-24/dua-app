@@ -5,11 +5,7 @@ import { CategoryList } from "@/app/(main)/(routes)/_components/category/categor
 
 export const revalidate = false; // Ensures the page is statically generated
 
-export default function MainLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function MainLayout() {
   const data = getCategoriesWithSubCategories();
   
   return (
