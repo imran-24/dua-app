@@ -9,6 +9,7 @@ import CategoryCard from "./category-card";
 import SubCategoryList from "./sub-category-list";
 import { CategoryWithSubCategory } from "@/type";
 import { cn, makeUrl } from "@/lib/utils";
+import { useOrigin } from "@/hooks/use-origin";
 
 interface CategoryListProps {
   categories: CategoryWithSubCategory[];
@@ -21,11 +22,12 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
 
   const [selected, setSelected] = useState<string | null>(categoryId || "1");
   const router = useRouter();
+  const origin = useOrigin();
 
   useEffect(() => {
     if (!categoryId) {
       const catname = categories[0].cat_name_en;
-      const url = makeUrl(catname, 1);
+      const url = makeUrl(origin, catname, 1);
       return router.push(url)
     }; // Only run if there is a `cat` parameter
     if (categoryId !== selected) {

@@ -27,8 +27,9 @@ const CategoryCard = ({
   const searchParams = useSearchParams();
   const categoryId = searchParams.get("cat")
   const isActive = id.toString() === categoryId;
-  
-  const url = makeUrl(category, id);
+  const origin = useOrigin();
+
+  const url = makeUrl(origin ,category, id);
 
   return (
     <>
