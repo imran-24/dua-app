@@ -1,6 +1,6 @@
 import React from "react";
 // import DuaList from "./_components/dua/dualist";
-import { getCategoriesWithSubCategories, getDuasByCategoryId } from "@/actions/queries";
+// import { getCategoriesWithSubCategories, getDuasByCategoryId } from "@/actions/queries";
 // import Settings from "@/components/settings/settings";
 
 
