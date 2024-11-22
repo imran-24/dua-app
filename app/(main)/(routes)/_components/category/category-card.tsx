@@ -4,6 +4,7 @@ import { useOrigin } from "@/hooks/use-origin";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 interface CategoryCardProps {
   id: number;
@@ -23,12 +24,14 @@ const CategoryCard = ({
   subcategory,
 }: CategoryCardProps) => {
 
-  // const searchParams = useSearchParams();
-  // const categoryId = searchParams.get("cat")
+  const searchParams = useSearchParams();
+  const categoryId = searchParams.get("cat")
+  console.log("SearchParams",categoryId);
+
   const isActive =  false;
   // id.toString() === categoryId;
   const origin = useOrigin();
-  const url = `${origin}duas/${category}?cat=${id}`;
+  const url = `${origin}/duas/${category}?cat=${id}`;
   const decodedUrl = decodeURIComponent(url);
   const updatedUrl = decodedUrl.replace(/\s/g, "-").toLowerCase();
 
