@@ -3,7 +3,6 @@
 import React, { useEffect, useRef } from "react";
 import DuaCard from "./dua-card";
 import { CategoryWithSubCategory, Dua } from "@/type";
-import Loading from "@/app/(main)/(routes)/loading";
 import { usePathname, useSearchParams } from "next/navigation";
 import { AlignJustify } from "lucide-react";
 import { SheetSidebar } from "./sheet-sidebar";
@@ -90,9 +89,7 @@ const DuaList = ({ duas, categories }: DuaListProps) => {
             {category}
           </span>
         </div>
-        {duas.length == 0 ? (
-          <Loading large />
-        ) : (
+        {
           duas.map((dua, index) => (
             <DuaCard
               key={index}
@@ -106,7 +103,7 @@ const DuaList = ({ duas, categories }: DuaListProps) => {
               audio={dua.audio}
             />
           ))
-        )}
+        }
       </div>
     </div>
   );
