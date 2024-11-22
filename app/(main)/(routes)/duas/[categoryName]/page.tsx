@@ -3,9 +3,14 @@ import DuaList from "./_components/dua/dualist";
 import { getCategoriesWithSubCategories, getDuasByCategoryId } from "@/actions/queries";
 import Settings from "@/components/settings/settings";
 
-const CategoryPage = ({ searchParams }: { searchParams: { cat: string } }) => {
+
+const DuaPage = async ({ searchParams }: { searchParams: Promise<{ cat: string }> }) => {
   const categories = getCategoriesWithSubCategories();
-  const duas = getDuasByCategoryId(searchParams.cat);
+  const categoryId = await searchParams; // Resolve the promise
+
+  console.log(searchParams);
+
+  const duas = getDuasByCategoryId(categoryId.cat);
   return (
     <div className='w-full grid grid-cols-8 gap-x-4'>
       <DuaList duas={duas} categories={categories}  />
@@ -14,4 +19,4 @@ const CategoryPage = ({ searchParams }: { searchParams: { cat: string } }) => {
   );
 };
 
-export default CategoryPage;
+export default DuaPage;
