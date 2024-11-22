@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useRef } from "react";
-import DuaCard, { DuaCardSkeleton } from "./dua-card";
+import DuaCard from "./dua-card";
 import { CategoryWithSubCategory, Dua } from "@/type";
 import Loading from "@/app/(main)/(routes)/loading";
 import { usePathname } from "next/navigation";
 import { AlignJustify } from "lucide-react";
 import { SheetSidebar } from "./sheet-sidebar";
-import { Skeleton } from "@/components/ui/skeleton";
+import DualistSkeleton from "./dualist-skeleton";
 
 interface DuaListProps {
   duas: Dua[];
@@ -40,44 +40,7 @@ const DuaList = ({ duas, categories }: DuaListProps) => {
 
   if (duas.length === 0) {
     return (
-      <div
-        style={{ height: "calc(100vh - 4rem)" }}
-        className='
-          pb-12
-          pt-2
-          md:p-0
-          col-span-8
-          xl:col-span-6
-          overflow-y-auto
-          '
-      >
-        <div
-          className='scroll-smooth md:h-full flex flex-col gap-y-2 '
-        >
-          <div
-            className='
-          flex 
-          lg:hidden
-          border-[1px]
-          shadow-sm
-          bg-white
-          font-semibold
-          items-center
-          rounded-lg p-4'
-          >
-            <SheetSidebar categories={categories}>
-              <button>
-                <AlignJustify className='h-5 w-5 mr-2' />
-              </button>
-            </SheetSidebar>
-            <Skeleton className='text-black font-semibold capitalize' />
-            <DuaCardSkeleton />
-            <DuaCardSkeleton />
-            <DuaCardSkeleton />
-            <DuaCardSkeleton />
-          </div>
-        </div>
-      </div>
+     <DualistSkeleton />
     );
   }
   return (

@@ -62,11 +62,10 @@ const CategoryCard = ({
               </span>
             </div>
           </div>
-          <div className='flex lg:hidden border-l p-2 text-sm text-center'>
+          <div className=' block lg:hidden border-l p-2 text-sm text-center'>
             <p>{duas}</p>
             <p className='text-xs text-neutral-500'>Duas</p>
           </div>
-          <div></div>
         </div>
       </Link>
     </>
