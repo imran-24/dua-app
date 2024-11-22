@@ -23,15 +23,12 @@ const CategoryCard = ({
   category,
   subcategory,
 }: CategoryCardProps) => {
-
   const searchParams = useSearchParams();
   const categoryId = searchParams.get("cat")
-  console.log("SearchParams",categoryId);
-
-  const isActive =  false;
-  // id.toString() === categoryId;
+  const isActive = id.toString() === categoryId;
   const origin = useOrigin();
   const url = `${origin}/duas/${category}?cat=${id}`;
+
   const decodedUrl = decodeURIComponent(url);
   const updatedUrl = decodedUrl.replace(/\s/g, "-").toLowerCase();
 
