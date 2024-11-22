@@ -1,8 +1,8 @@
 
 import Sidebar from "@/components/sidebar/sidebar";
 import Navigation from "./_components/navigation";
-// import { getCategoriesWithSubCategories } from "@/actions/queries";
-// import { CategoryList } from "@/app/(main)/(routes)/_components/category/category-list";
+import { getCategoriesWithSubCategories } from "@/actions/queries";
+import { CategoryList } from "@/app/(main)/(routes)/_components/category/category-list";
 
 export const revalidate = false; // Ensures the page is statically generated
 
@@ -11,7 +11,7 @@ export default function MainLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const data = getCategoriesWithSubCategories();
+  const data = getCategoriesWithSubCategories();
 
   return (
     <Sidebar>
@@ -23,7 +23,7 @@ export default function MainLayout({
               lg:block 
               lg:col-span-3'
           >
-            {/* <CategoryList categories={data} /> */}
+            <CategoryList categories={data} />
           </div>
           <div className='col-span-12 lg:col-span-9'>{children}</div>
         </div>
