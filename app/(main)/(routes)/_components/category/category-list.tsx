@@ -5,9 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Loading from "../../loading";
 import CategoryCard from "./category-card";
-import SubCategoryList from "./sub-category-list";
 import { CategoryWithSubCategory } from "@/type";
-import { cn } from "@/lib/utils";
 
 interface CategoryListProps {
   categories: CategoryWithSubCategory[];
@@ -68,7 +66,7 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
                     subcategory={category.no_of_subcat}
                   />
                 </div>
-                <div
+                {/* <div
                   className={cn(
                     // selected === category.cat_id.toString() ? "block" : "hidden"
                   )}
@@ -77,7 +75,7 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
                     id={category.cat_id}
                     subcategories={category.subCategories}
                   />
-                </div>
+                </div> */}
               </div>
             ))
           )}
