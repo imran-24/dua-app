@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import DuaCard from "./dua-card";
 import { CategoryWithSubCategory, Dua } from "@/type";
 import Loading from "@/app/(main)/(routes)/loading";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { AlignJustify } from "lucide-react";
 import { SheetSidebar } from "./sheet-sidebar";
 import DualistSkeleton from "./dualist-skeleton";
@@ -15,28 +15,39 @@ interface DuaListProps {
 }
 
 const DuaList = ({ duas, categories }: DuaListProps) => {
+  const subCatId = useSearchParams().get("sub");
   const pathname = usePathname();
   const category = pathname.replace("/duas/", "").replace(/-/g, " ");
 
   const scrollRef = useRef<HTMLDivElement>(null);
-  // const [duas, setDuas] = useState<Dua[]>([])
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       setDuas([])
-  //       const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/duas/${categoryId}`);
-  //       setDuas(response.data);
-  //       scrollRef.current?.scrollTop
+  useEffect(() => {
 
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //       // Handle error state or log the error as needed
-  //     }
-  //   };
+    if (subCatId) {
 
-  //   fetchData();
-  // }, [categoryId]);
+      // Scroll to the selected category
+      if (scrollRef.current) {
+        // Find the category index based on `categoryId`
+        const categoryIndex = duas.findIndex(
+          (dua) => dua.subcat_id.toString() === subCatId
+        );
+
+        if (categoryIndex !== -1) {
+          const catElement = scrollRef.current.children[
+            categoryIndex
+          ] as HTMLDivElement;
+
+          setTimeout(() => {
+            catElement?.scrollIntoView({
+              behavior: "smooth",
+              block: "start", // Align the element at the start of the view
+            });
+          }, 300);
+        }
+      }
+    }
+  }, [subCatId]);
+
 
   if (duas.length === 0) {
     return (

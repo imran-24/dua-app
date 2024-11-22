@@ -23,6 +23,32 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
   const router = useRouter();
   const origin = useOrigin();
 
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [filteredCategories, setFilteredCategories] = useState(categories); // State for filtered categories
+
+  // Function to handle search query changes
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+
+    if (query.trim() === "") {
+      setFilteredCategories(categories); // Reset if query is empty
+      return;
+    }
+
+    // Filter categories based on relevance (match in category name)
+    const filtered = categories
+      .map((category) => ({
+        ...category,
+        relevance: category.cat_name_en
+          .toLowerCase()
+          .indexOf(query.toLowerCase()),
+      }))
+      .filter((category) => category.relevance !== -1) // Remove non-matching items
+      .sort((a, b) => a.relevance - b.relevance); // Sort by relevance
+
+    setFilteredCategories(filtered);
+  };
+
   useEffect(() => {
     if (!categoryId) {
       const catname = categories[0].cat_name_en;
@@ -62,7 +88,7 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
 
   return (
     <div
-      className="
+      className='
         h-full
         xl:h-auto
         lg:bg-white
@@ -71,7 +97,7 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
         rounded-lg
         overflow-y-auto
         relative
-      "
+      '
     >
       <div className='sticky top-0 inset-x-0  py-4 mb-3  bg-[#1fa45b]'>
         <h2 className='text-xl text-center text-white font-semibold'>
@@ -82,8 +108,10 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
         <div className='lg:flex items-center relative px-3 hidden'>
           <Input
             type='text'
+            placeholder='Search categories'
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
             className='pl-10 h-10 focus-visible:ring-[#1fa45b] placeholder:text-sm placeholder:font-light'
-            placeholder='Search by dua name'
           />
           <div
             role='button'
@@ -94,34 +122,63 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
         </div>
         <div
           ref={scrollRef}
-          className="min-h-[420px] lg:h-[420px] space-y-2 overflow-y-auto px-2 pl-3"
+          className='min-h-[420px] lg:h-[420px] space-y-2 overflow-y-auto px-2 pl-3'
         >
-          {categories.map((category) => (
-            <div key={category.cat_id.toString()}>
-              <div>
-                <CategoryCard
-                  id={category.cat_id}
-                  category={category.cat_name_en}
-                  icon={category.cat_icon}
-                  duas={category.no_of_dua}
-                  subcategory={category.no_of_subcat}
-                />
-              </div>
-              <div
-                className={cn(
-                  selected === category.cat_id.toString() ? "block" : "hidden"
-                )}
-              >
-                <SubCategoryList
-                  id={category.cat_id}
-                  subcategories={category.subCategories}
-                />
-              </div>
-            </div>
-          ))}
+          <>
+            {!searchQuery
+              ? categories.map((category) => (
+                  <div key={category.cat_id.toString()}>
+                    <div>
+                      <CategoryCard
+                        id={category.cat_id}
+                        category={category.cat_name_en}
+                        icon={category.cat_icon}
+                        duas={category.no_of_dua}
+                        subcategory={category.no_of_subcat}
+                      />
+                    </div>
+                    <div
+                      className={cn(
+                        selected === category.cat_id.toString()
+                          ? "block"
+                          : "hidden"
+                      )}
+                    >
+                      <SubCategoryList
+                        id={category.cat_id}
+                        subcategories={category.subCategories}
+                      />
+                    </div>
+                  </div>
+                ))
+              : filteredCategories.map((category) => (
+                  <div key={category.cat_id.toString()}>
+                    <div>
+                      <CategoryCard
+                        id={category.cat_id}
+                        category={category.cat_name_en}
+                        icon={category.cat_icon}
+                        duas={category.no_of_dua}
+                        subcategory={category.no_of_subcat}
+                      />
+                    </div>
+                    <div
+                      className={cn(
+                        selected === category.cat_id.toString()
+                          ? "block"
+                          : "hidden"
+                      )}
+                    >
+                      <SubCategoryList
+                        id={category.cat_id}
+                        subcategories={category.subCategories}
+                      />
+                    </div>
+                  </div>
+                ))}
+          </>
         </div>
       </div>
     </div>
   );
 };
-
