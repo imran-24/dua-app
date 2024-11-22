@@ -1,5 +1,6 @@
 "use client";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { useOrigin } from "@/hooks/use-origin";
 import { makeUrl } from "@/lib/utils";
 import clsx from "clsx";
@@ -73,3 +74,30 @@ const CategoryCard = ({
 };
 
 export default CategoryCard;
+
+export function CategoryCardSkeleton() {
+  return (
+    <div
+      className='w-full'
+      >
+        <div
+          className={clsx(
+            `flex items-center justify-between  p-2 space-x-2  rounded-lg hover:bg-neutral-200 transition duration-100 ease-out` )}
+        >
+          <div className='flex items-center space-x-2 flex-1 '>
+            <div className='h-14 w-14 bg-white flex items-center justify-center rounded-lg'>
+              <Skeleton className="h-10 10 rounded-lg" />
+            </div>
+            <div>
+              <Skeleton className='h-4 w-full' />
+              <Skeleton className='h-4 w-full' />
+            </div>
+          </div>
+          <Skeleton className=' block lg:hidden border-l p-2 text-sm text-center'>
+            <Skeleton className="h-4 w-4 rounded-lg"  />
+            <Skeleton className='h-3 w-3' />
+          </Skeleton>
+        </div>
+      </div>
+  );
+}

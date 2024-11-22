@@ -4,17 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import Loading from "../../loading";
 import CategoryCard from "./category-card";
 import SubCategoryList from "./sub-category-list";
 import { CategoryWithSubCategory } from "@/type";
 import { cn, makeUrl } from "@/lib/utils";
 import { useOrigin } from "@/hooks/use-origin";
+import CategorySkeleton from "./category-skeleton";
 
 interface CategoryListProps {
   categories: CategoryWithSubCategory[];
 }
-
 export const CategoryList = ({ categories }: CategoryListProps) => {
   const params = useSearchParams();
   const categoryId = params.get("cat");
@@ -28,39 +27,51 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
     if (!categoryId) {
       const catname = categories[0].cat_name_en;
       const url = makeUrl(origin, catname, 1);
-      return router.push(url)
-    }; // Only run if there is a `cat` parameter
-    if (categoryId !== selected) {
-      setSelected(categoryId); // Update selected if it differs
-      // Scroll to the selected category
-      // if (scrollRef.current) {
-      //   // const categoryIndex = categories.findIndex(
-      //   //   (category) => category.cat_id.toString() === categoryId
-      //   // );
-      //   if (Number(categoryId) >= 0) {
-      //     const catElement = scrollRef.current.children[
-      //       Number(categoryId)
-      //     ] as HTMLDivElement;
-      //     catElement?.scrollIntoView({
-      //       behavior: "smooth",
-      //       block: "start", // Center the element in view
-      //     });
-      //   }
-      // }
+      return router.push(url);
     }
-  }, [categoryId]);
+
+    if (categoryId !== selected) {
+      setSelected(categoryId);
+
+      // Scroll to the selected category
+      if (scrollRef.current) {
+        // Find the category index based on `categoryId`
+        const categoryIndex = categories.findIndex(
+          (category) => category.cat_id.toString() === categoryId
+        );
+
+        if (categoryIndex !== -1) {
+          const catElement = scrollRef.current.children[
+            categoryIndex
+          ] as HTMLDivElement;
+
+          setTimeout(() => {
+            catElement?.scrollIntoView({
+              behavior: "smooth",
+              block: "start", // Align the element at the start of the view
+            });
+          }, 300);
+        }
+      }
+    }
+  }, [categoryId, categories, selected]);
+
+  if (categories.length === 0) {
+    return <CategorySkeleton />;
+  }
 
   return (
     <div
-      className='
+      className="
         h-full
+        xl:h-auto
         lg:bg-white
         lg:border-[1px]
         shadow-sm
         rounded-lg
         overflow-y-auto
         relative
-      '
+      "
     >
       <div className='sticky top-0 inset-x-0  py-4 mb-3  bg-[#1fa45b]'>
         <h2 className='text-xl text-center text-white font-semibold'>
@@ -83,39 +94,34 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
         </div>
         <div
           ref={scrollRef}
-          className='min-h-[420px] lg:h-[420px] space-y-2 overflow-y-auto px-2 pl-3'
+          className="min-h-[420px] lg:h-[420px] space-y-2 overflow-y-auto px-2 pl-3"
         >
-          {categories.length === 0 ? (
-            <Loading />
-          ) : (
-            categories.map((category) => (
-              <div key={category.cat_id.toString()}>
-                <div>
-                  <CategoryCard
-                    id={category.cat_id}
-                    category={category.cat_name_en}
-                    icon={category.cat_icon}
-                    duas={category.no_of_dua}
-                    subcategory={category.no_of_subcat}
-                  />
-                </div>
-                <div
-                  className={cn(
-                    selected === category.cat_id.toString() ? "block" : "hidden"
-                  )}
-                >
-                  <SubCategoryList
-                    id={category.cat_id}
-                    subcategories={category.subCategories}
-                  />
-                </div>
+          {categories.map((category) => (
+            <div key={category.cat_id.toString()}>
+              <div>
+                <CategoryCard
+                  id={category.cat_id}
+                  category={category.cat_name_en}
+                  icon={category.cat_icon}
+                  duas={category.no_of_dua}
+                  subcategory={category.no_of_subcat}
+                />
               </div>
-            ))
-          )}
+              <div
+                className={cn(
+                  selected === category.cat_id.toString() ? "block" : "hidden"
+                )}
+              >
+                <SubCategoryList
+                  id={category.cat_id}
+                  subcategories={category.subCategories}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 };
-
 

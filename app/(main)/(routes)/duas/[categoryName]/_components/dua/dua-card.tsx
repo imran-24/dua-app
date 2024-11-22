@@ -273,35 +273,3 @@ export function DuaCardSkeleton() {
   );
 }
 
-// <div
-//   className='inline-flex
-//     w-full
-//     text-base
-//     border-[1px]
-//     shadow-sm
-//     bg-white
-//     font-semibold
-//     rounded-lg p-4'
-// >
-//   <div className='space-y-2'>
-//     <Skeleton className='h-4 w-4 rounded-full' />
-//     <Skeleton className='h-4 w-[200px]' />
-//   </div>
-//   <div
-//     className='border-[1px]
-//         shadow-sm
-//         bg-white
-//         rounded-lg p-4'
-//   >
-//     <Skeleton className='h-4 w-full rounded-xl' />
-//     <Skeleton className='h-4 w-full rounded-xl' />
-//     <Skeleton className='h-4 w-full rounded-xl' />
-//   </div>
-//   <div className='flex items-center justify-end space-x-4'>
-//     <Skeleton className='h-6 w-6 rounded-md' />
-//     <Skeleton className='h-6 w-6 rounded-md' />
-//     <Skeleton className='h-6 w-6 rounded-md' />
-//     <Skeleton className='h-6 w-6 rounded-md' />
-//     <Skeleton className='h-6 w-6 rounded-md' />
-//   </div>
-// </div>
