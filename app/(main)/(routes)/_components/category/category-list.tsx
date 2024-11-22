@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Loading from "../../loading";
@@ -20,10 +20,13 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [selected, setSelected] = useState<string | null>(categoryId || "1");
-  // const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
-    if (!categoryId) return; // Only run if there is a `cat` parameter
+    if (!categoryId) {
+      const catname = categories[0].cat_name_en
+      return router.push(`/duas/${catname}?cat=1`)
+    }; // Only run if there is a `cat` parameter
     if (categoryId !== selected) {
       setSelected(categoryId); // Update selected if it differs
       // Scroll to the selected category
