@@ -11,7 +11,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
   const data = getCategoriesWithSubCategories();
-
+  
   return (
     <Sidebar>
       <div className='h-full'>
@@ -24,7 +24,7 @@ export default function MainLayout({
             >
             <CategoryList categories={data} />
           </div>
-          <div className='col-span-12 lg:col-span-9'>{children}</div>
+          {/* <div className='col-span-12 lg:col-span-9'>{children}</div> */}
         </div>
         {/* <UserList items={users} /> */}
       </div>
