@@ -8,7 +8,7 @@ import Loading from "../../loading";
 import CategoryCard from "./category-card";
 import SubCategoryList from "./sub-category-list";
 import { CategoryWithSubCategory } from "@/type";
-import { cn } from "@/lib/utils";
+import { cn, makeUrl } from "@/lib/utils";
 
 interface CategoryListProps {
   categories: CategoryWithSubCategory[];
@@ -24,8 +24,9 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
 
   useEffect(() => {
     if (!categoryId) {
-      const catname = categories[0].cat_name_en
-      return router.push(`/duas/${catname}?cat=1`)
+      const catname = categories[0].cat_name_en;
+      const url = makeUrl(catname, 1);
+      return router.push(url)
     }; // Only run if there is a `cat` parameter
     if (categoryId !== selected) {
       setSelected(categoryId); // Update selected if it differs
