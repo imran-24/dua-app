@@ -53,8 +53,8 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
     if (!categoryId) {
       const catname = categories[0].cat_name_en;
       const url = makeUrl(origin, catname, 1);
-      return router.push(url)
-    }; // Only run if there is a cat parameter
+      return router.push(url);
+    } // Only run if there is a cat parameter
     if (categoryId !== selected) {
       setSelected(categoryId); // Update selected if it differs
       // Scroll to the selected category
@@ -72,7 +72,6 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
               block: "center", // Align the element at the start of the view
             });
           }, 300);
-          
         }
       }
     }
