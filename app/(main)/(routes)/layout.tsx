@@ -6,11 +6,7 @@ import { Suspense } from "react";
 
 export const revalidate = false; // Ensures the page is statically generated
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function MainLayout() {
   const data = getCategoriesWithSubCategories();
 
   return (
@@ -26,7 +22,7 @@ export default function MainLayout({
             >
               <CategoryList categories={data} />
             </div>
-            <div className='col-span-12 lg:col-span-9'>{children}</div>
+            {/* <div className='col-span-12 lg:col-span-9'>{children}</div> */}
           </div>
         </Suspense>
       </div>
