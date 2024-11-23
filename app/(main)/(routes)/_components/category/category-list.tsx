@@ -53,30 +53,26 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
     if (!categoryId) {
       const catname = categories[0].cat_name_en;
       const url = makeUrl(origin, catname, 1);
-      router.push(url);
-    }
-
+      return router.push(url)
+    }; // Only run if there is a cat parameter
     if (categoryId !== selected) {
-      setSelected(categoryId);
-
+      setSelected(categoryId); // Update selected if it differs
       // Scroll to the selected category
       if (scrollRef.current) {
-        // Find the category index based on `categoryId`
-        const categoryIndex = categories.findIndex(
-          (category) => category.cat_id.toString() === categoryId
-        );
-
-        if (categoryIndex !== -1) {
+        // const categoryIndex = categories.findIndex(
+        //   (category) => category.cat_id.toString() === categoryId
+        // );
+        if (Number(categoryId) >= 0) {
           const catElement = scrollRef.current.children[
-            categoryIndex
+            Number(categoryId)
           ] as HTMLDivElement;
-
           setTimeout(() => {
             catElement?.scrollIntoView({
               behavior: "smooth",
-              block: "start", // Align the element at the start of the view
+              block: "center", // Align the element at the start of the view
             });
           }, 300);
+          
         }
       }
     }
