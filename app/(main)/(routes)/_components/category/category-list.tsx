@@ -53,7 +53,7 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
     if (!categoryId) {
       const catname = categories[0].cat_name_en;
       const url = makeUrl(origin, catname, 1);
-      return router.push(url);
+      router.push(url);
     }
 
     if (categoryId !== selected) {
