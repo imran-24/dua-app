@@ -8,9 +8,9 @@ export const revalidate = false; // Ensures the page is statically generated
 
 export default function MainLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   const data = getCategoriesWithSubCategories();
 
   return (
