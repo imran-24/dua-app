@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import CategoryCard from "./category-card";
 import SubCategoryList from "./sub-category-list";
 import { CategoryWithSubCategory } from "@/type";
-import { cn, makeUrl } from "@/lib/utils";
-import { useOrigin } from "@/hooks/use-origin";
+import { cn } from "@/lib/utils";
 import CategorySkeleton from "./category-skeleton";
 
 interface CategoryListProps {
@@ -20,8 +19,8 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [selected, setSelected] = useState<string | null>(categoryId || "1");
-  const router = useRouter();
-  const origin = useOrigin();
+  // const router = useRouter();
+  // const origin = useOrigin();
 
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const [filteredCategories, setFilteredCategories] = useState(categories); // State for filtered categories
@@ -50,11 +49,11 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
   };
 
   useEffect(() => {
-    if (!categoryId) {
-      const catname = categories[0].cat_name_en;
-      const url = makeUrl(origin, catname, 1);
-      return router.push(`${url}`);
-    }
+    // if (!categoryId) {
+    //   const catname = categories[0].cat_name_en;
+    //   const url = makeUrl(origin, catname, 1);
+    //   router.push(url);
+    // }
 
     if (categoryId !== selected) {
       setSelected(categoryId);
@@ -80,7 +79,7 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
         }
       }
     }
-  }, [categoryId, categories, selected]);
+  }, [categoryId, selected]);
 
   if (categories.length === 0) {
     return <CategorySkeleton />;
