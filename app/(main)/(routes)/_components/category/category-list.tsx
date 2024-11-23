@@ -80,7 +80,7 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
         }
       }
     }
-  }, [categoryId, selected]);
+  }, [categoryId]);
 
   if (categories.length === 0) {
     return <CategorySkeleton />;
